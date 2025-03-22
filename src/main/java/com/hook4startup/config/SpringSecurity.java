@@ -66,12 +66,7 @@ public class SpringSecurity {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // ✅ Allowed Origins - Trailing slash hatao!
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "http://localhost:3000",
-                "http://localhost:4173",
-                "https://hook4startup-client.onrender.com"
-        ));
+        configuration.setAllowedOrigins(List.of("*" ));
 
         // ✅ Methods Allowed
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
