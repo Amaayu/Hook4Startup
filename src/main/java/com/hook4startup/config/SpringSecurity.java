@@ -61,18 +61,42 @@ public class SpringSecurity {
 
         return http.build();
     }
-
-   @Bean
+ @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173/","http://localhost:3000","http://localhost:4173/","https://hook4startup-client.onrender.com")); // ✅ React frontend
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cookie")); // ✅ "Cookie" header added
-        configuration.setExposedHeaders(List.of("Set-Cookie")); // ✅ Allow backend to send "Set-Cookie"
-        configuration.setAllowCredentials(true); // ✅ Cookies allow karo
 
+        // ✅ Allowed Origins - Trailing slash hatao!
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "http://localhost:3000",
+                "http://localhost:4173",
+                "https://hook4startup-client.onrender.com"
+        ));
+
+        // ✅ Methods Allowed
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // ✅ Allowed Headers
+        configuration.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "X-Requested-With",
+                "Accept"
+        ));
+
+        // ✅ Exposed Headers - Set-Cookie ke sath Authorization ko expose karo
+        configuration.setExposedHeaders(List.of(
+                "Set-Cookie",
+                "Authorization"
+        ));
+
+        // ✅ Allow credentials for cookies & secure sessions
+        configuration.setAllowCredentials(true);
+
+        // ✅ Register for all endpoints
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 
