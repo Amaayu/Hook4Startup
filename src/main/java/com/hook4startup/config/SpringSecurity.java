@@ -5,6 +5,7 @@ import com.hook4startup.services.CustomerUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -50,6 +51,7 @@ public class SpringSecurity {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS ko enable karna
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()// ✅ Public routes
                         .requestMatchers("/user/**", "/post/**", "/comment/**","/like/**","/cloudinary/**").authenticated() // ✅ Protected routes
                         .anyRequest().permitAll()
@@ -61,34 +63,15 @@ public class SpringSecurity {
 
         return http.build();
     }
- @Bean
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // ✅ Allowed Origins - Trailing slash hatao!
-        configuration.setAllowedOrigins(List.of("*" ));
-
-        // ✅ Methods Allowed
+        configuration.setAllowedOrigins(List.of("https://hook4startup-client.onrender.com"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // ✅ Allowed Headers
-        configuration.setAllowedHeaders(List.of(
-                "Authorization",
-                "Content-Type",
-                "X-Requested-With",
-                "Accept"
-        ));
-
-        // ✅ Exposed Headers - Set-Cookie ke sath Authorization ko expose karo
-        configuration.setExposedHeaders(List.of(
-                "Set-Cookie",
-                "Authorization"
-        ));
-
-        // ✅ Allow credentials for cookies & secure sessions
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With", "Accept"));
+        configuration.setExposedHeaders(List.of("Set-Cookie", "Authorization"));
         configuration.setAllowCredentials(true);
 
-        // ✅ Register for all endpoints
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 
