@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://namdevaniket446:TOd09Wqu32PHamYn@cms.dtgydnp.mongodb.net/?retryWrites=true&w=majority&appName=cms
+      database: Hook4Startup-dev
+      auto-index-creation: true
+
+application:
+  name: hook4startup
+
+logging:
+  level:
+    org.springframework.security: DEBUG  # ✅ '=' ko ':' se replace karo
