@@ -18,7 +18,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/target/Hook4Startup-0.0.1-SNAPSHOT.jar Hook4Startup.jar
 
 # Expose both Java and Nginx ports
-EXPOSE 8081 8082
+EXPOSE 8082
 
 # Start both services (Java and Nginx)
 CMD service nginx start && java -jar Hook4Startup.jar
