@@ -7,10 +7,12 @@ spring:
       uri: mongodb+srv://namdevaniket446:TOd09Wqu32PHamYn@cms.dtgydnp.mongodb.net/?retryWrites=true&w=majority&appName=cms
       database: Hook4Startup-dev
       auto-index-creation: true
+  resources:
+    static-locations: classpath:/static/
 
 application:
   name: hook4startup
 
 logging:
   level:
-    org.springframework.security: DEBUG  # ✅ '=' ko ':' se replace karo
+    org.springframework.security: DEBUG

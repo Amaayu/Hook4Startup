@@ -26,7 +26,7 @@ public class CustomTokenFilter extends OncePerRequestFilter {
 
         // ✅ **Bypass token validation for `/auth/**` APIs**
         String path = request.getRequestURI();
-        if (path.startsWith("/auth")) {
+        if (path.startsWith("/auth")||path.startsWith("/")) {
             filterChain.doFilter(request, response);
             return;
         }
