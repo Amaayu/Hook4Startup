@@ -26,10 +26,21 @@ public class CustomTokenFilter extends OncePerRequestFilter {
 
         // ✅ **Bypass token validation for `/auth/**` APIs**
         String path = request.getRequestURI();
-        if (path.startsWith("/auth")||path.startsWith("/index.html/**")) {
+        if (path.startsWith("/auth")|| path.equals("/")) {
             filterChain.doFilter(request, response);
             return;
         }
+
+      // ✅ React static assets ko bhi bypass karo
+        if (path.startsWith("/static/") || path.startsWith("/assets/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if (path.startsWith("/vite.ico")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 
         String token = null;
 
