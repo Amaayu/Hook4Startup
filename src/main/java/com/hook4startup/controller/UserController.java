@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -98,7 +99,6 @@ public class UserController {
     }
 
 
-
     @PostMapping("/profile/create")
     public ResponseEntity<?> createUserProfile(@RequestBody UserProfile userProfile) {
         try {
@@ -177,4 +177,37 @@ public class UserController {
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
+
+    // User get profile
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getUserProfile() {
+
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated()) {
+                return new ResponseEntity<>("User is not authenticated", HttpStatus.UNAUTHORIZED);
+            }
+            String nameofUser = authentication.getName();
+
+            UserProfile userProfileByUsername = userProfileRepo.findUserProfileByUsername(nameofUser);
+            // ✅ Agar profile mil jaye to response bhejo
+            if (userProfileByUsername == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("message", "User profile not found"));
+            }
+            return ResponseEntity.ok( Map.of(
+
+                    "userProfile", userProfileByUsername,
+                    "message", "user profile is here"
+            ));
+
+
+        } catch (Exception e) {
+            // 🔥 Exception ko log karo
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Something went wrong while fetching the profile"));
+        }
+        }
+    }
