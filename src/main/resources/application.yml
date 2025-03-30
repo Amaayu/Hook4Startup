@@ -9,7 +9,16 @@ spring:
       auto-index-creation: true
   resources:
     static-locations: classpath:/static/
-
+  rabbitmq:
+    host: rabbit.lmq.cloudamqp.com
+    port: 5672
+    username: mmsfgliq
+    password: l1nToIl0OyjRnfb2v_-aZNH9SJY2cMoe
+    virtual-host: mmsfgliq
+    listener:
+      simple:
+        prefetch: 1
+        concurrency: 1
 application:
   name: hook4startup
 

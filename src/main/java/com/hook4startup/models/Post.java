@@ -23,7 +23,8 @@ import java.util.List;
 public class Post {
 
     @Id
-    private String postId;
+    private String id;
+
 
     @DBRef
     @JsonIgnoreProperties({"posts"}) // ✅ Prevent Circular Reference
@@ -54,7 +55,7 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "postId='" + postId + '\'' +
+                "postId='" + id + '\'' +
                 ", userId='" + userId + '\'' +
                 ", content='" + content + '\'' +
                 ", creationDate=" + creationDate +

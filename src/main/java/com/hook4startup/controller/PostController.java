@@ -60,7 +60,7 @@ public class PostController {
             UserProfile userProfileByUserId = userProfileRepo.findUserProfileByUserId(user.getId());
             // ✅ Corrected: Use user.getId() instead of user object
             Post newPost = new Post();
-            newPost.setPostId(new ObjectId().toString());
+            newPost.setId(new ObjectId().toString());
             newPost.setUserId(user);  // ✅ Store only the String ID
             newPost.setContent(postDto.getContent());
             newPost.setUsername(user.getUsername());
@@ -131,7 +131,7 @@ public class PostController {
             List<PostDto> postDTOList = postList.stream()
                     .map(post -> {
                         if (post.getUserId() == null) {
-                            System.out.println("⚠ Skipping post as user is not found for postId: " + post.getPostId());
+                            System.out.println("⚠ Skipping post as user is not found for postId: " + post.getId());
                             return null;
                         }
 
@@ -139,7 +139,7 @@ public class PostController {
 
                         PostDto dto = new PostDto(
                                 user.getId(),                             // ✅ userId
-                                post.getPostId(),                         // ✅ postId
+                                post.getId(),                         // ✅ postId
                                 user.getUsername(),                       // ✅ username
                                 post.getContent(),                        // ✅ content
                                 post.getProfileImageUrl() != null ? post.getProfileImageUrl() : "default-profile-url",
@@ -190,7 +190,7 @@ public class PostController {
 
             List<PostDto> postDTOList = postList.stream().map(post -> {
                 if (post.getUserId() == null) {
-                    System.out.println("⚠ User not found for post: " + post.getPostId());
+                    System.out.println("⚠ User not found for post: " + post.getId());
                     return null;
                 }
 
@@ -198,7 +198,7 @@ public class PostController {
 
                 PostDto dto = new PostDto(
                         user.getId(),               // ✅ userId
-                        post.getPostId(),           // ✅ postId
+                        post.getId(),           // ✅ postId
                         user.getUsername(),          // ✅ Post ID
                         post.getContent(),          // ✅ Post Content
                         post.getProfileImageUrl(),
