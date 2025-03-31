@@ -84,7 +84,7 @@ public class  AuthController {
         ResponseCookie cookie = ResponseCookie.from("session_token", token)
                 .path("/")
                 .maxAge(7 * 24 * 60 * 60) // 7 din tak vali
-                .sameSite("Lax")
+                .sameSite("Strict")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
@@ -126,7 +126,7 @@ public class  AuthController {
         ResponseCookie cookie = ResponseCookie.from("session_token", newToken.getToken())
                 .path("/")
                 .maxAge(7 * 24 * 60 * 60) // 7 दिन तक valid
-                .sameSite("Lax")
+                .sameSite("Strict")
                 .build();
                  response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
         return ResponseEntity.ok(Map.of(

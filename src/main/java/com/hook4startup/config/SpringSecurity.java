@@ -50,7 +50,7 @@ public class SpringSecurity {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS ko enable karna
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**","/vite.ico ","/static/assets/index.html/**","/index.html/**").permitAll()// ✅ Public routes
+                        .requestMatchers("/auth/**","/vite.ico ","/manifest/**","/pwa-192x192.png","/static/assets/index.html/**","/index.html/**").permitAll()// ✅ Public routes
                         .requestMatchers("/user/**","/notify/**", "/post/**", "/comment/**","/like/**","/cloudinary/**").authenticated() // ✅ Protected routes
                         .anyRequest().permitAll()
                 )
