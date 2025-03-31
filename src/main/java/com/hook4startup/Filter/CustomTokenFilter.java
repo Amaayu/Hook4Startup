@@ -36,7 +36,7 @@ public class CustomTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        if (path.startsWith("/vite.ico")) {
+        if (path.startsWith("/registerSW.js")) {
             filterChain.doFilter(request, response);
             return;
         }
