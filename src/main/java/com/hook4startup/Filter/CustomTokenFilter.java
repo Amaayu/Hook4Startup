@@ -52,6 +52,10 @@ public class CustomTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        if (path.startsWith("/pwa-192x192.png")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String token = null;
 
