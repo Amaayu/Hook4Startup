@@ -52,7 +52,11 @@ public class CustomTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        if (path.startsWith("/pwa-192x192.png")) {
+        if (path.startsWith("/pwa-192x192")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if (path.startsWith("/workbox-4723e66c.js")) {
             filterChain.doFilter(request, response);
             return;
         }
