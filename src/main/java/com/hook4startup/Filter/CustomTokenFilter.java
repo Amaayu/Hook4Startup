@@ -40,7 +40,18 @@ public class CustomTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
+        if (path.startsWith("/sw.js")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if (path.startsWith("/manifest")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        if (path.startsWith("/favicon.ico")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String token = null;
 
